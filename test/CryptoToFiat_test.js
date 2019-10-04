@@ -160,54 +160,6 @@ contract('CryptoToFiat', function(accounts) {
 
     });
 
-    /*
-    it ("Initiate Conversion Test Cases", async function()
-    { 
-        let _conversionUpperLimit = 100
-        let depositAmount = 1200
-
-        await token.transfer(accounts[5], depositAmount, {from:accounts[0]});
-        await token.approve(cryptoToFiat.address, depositAmount , {from:accounts[5]}); 
-        await cryptoToFiat.deposit(depositAmount, {from:accounts[5]});
-
-        assert.equal((await cryptoToFiat.balances.call(accounts[5])).toNumber(), depositAmount)
-
-        // Test to convert full balance - should not allow
-        testErrorRevert(cryptoToFiat.initiateConversion(depositAmount, {from:accounts[5]}));
-
-        // Test to convert more than balance amount
-        testErrorRevert(cryptoToFiat.initiateConversion(depositAmount+1, {from:accounts[5]}));
-
-        // Initiate the Conversion
-        var conversionAmount = 80
-        var a5_balance_b = (await cryptoToFiat.balances.call(accounts[5])).toNumber();
-        var a1_balance_b = (await cryptoToFiat.balances.call(accounts[1])).toNumber();
-        await cryptoToFiat.initiateConversion(conversionAmount, {from:accounts[5]})
-        var a5_balance_a = (await cryptoToFiat.balances.call(accounts[5])).toNumber();
-        var a1_balance_a = (await cryptoToFiat.balances.call(accounts[1])).toNumber();
-
-        assert.equal(a5_balance_a, a5_balance_b - conversionAmount)
-        assert.equal(a1_balance_a, a1_balance_b + conversionAmount)
-
-        // Test to convert immediately in the next txn
-        testErrorRevert(cryptoToFiat.initiateConversion(conversionAmount, {from:accounts[5]}));
-
-        // Create Dummy Blocks to test after the min txn blocks
-        let _txnLimitInBlocks = 9
-        await mineBlocks(_txnLimitInBlocks);
-
-        // Test to withdraw more than the Upper Limit for Txn
-        testErrorRevert(cryptoToFiat.initiateConversion(_conversionUpperLimit+1, {from:accounts[5]}));
-
-        conversionAmount = 60
-        a5_balance_b = (await cryptoToFiat.balances.call(accounts[5])).toNumber();
-        a1_balance_b = (await cryptoToFiat.balances.call(accounts[1])).toNumber();
-        await cryptoToFiat.initiateConversion(conversionAmount, {from:accounts[5]})
-        a5_balance_a = (await cryptoToFiat.balances.call(accounts[5])).toNumber();
-        a1_balance_a = (await cryptoToFiat.balances.call(accounts[1])).toNumber();
-
-    }); */
-
     it ("Initiate Conversion Test Cases", async function()
     { 
         let _conversionUpperLimit = 100

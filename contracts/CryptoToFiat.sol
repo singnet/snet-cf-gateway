@@ -87,28 +87,6 @@ contract CryptoToFiat {
         return true;
     }
 
-    // TODO: This function will be replaced with the following function
-    // Once the logic is finalized
-    function initiateConversion_old(uint256 value)
-    public
-    returns(bool)
-    {
-        require(balances[msg.sender] >= value, "Insufficient balance in the contract");
-        require(balances[msg.sender] >= value.add(minBalance), "Minimum balance to be maintained in the contract");
-        require(value <= conversionUpperLimit, "Exceeding the conversion limit");
-        require(lastTxnBlocks[msg.sender] <= block.number.sub(txnLimitInBlocks), "Exceeding the number of transactions in given time");
-
-        balances[msg.sender] = balances[msg.sender].sub(value);
-        balances[owner] = balances[owner].add(value);
-
-        lastTxnBlocks[msg.sender] = block.number;
-        totalConvertedAmt[msg.sender] = totalConvertedAmt[msg.sender].add(value);
-
-        emit ConvertFunds(msg.sender, owner, value);
-        return true;
-    }
-
-    // Ver 2.0 Logic, Yet write test cases
     function initiateConversion(uint256 value, uint256 totalClaim, uint8 v, bytes32 r, bytes32 s)
     public
     returns(bool)
@@ -132,7 +110,8 @@ contract CryptoToFiat {
         lastTxnBlocks[msg.sender] = block.number;
         totalConvertedAmt[msg.sender] = totalConvertedAmt[msg.sender].add(value);
 
-        emit ConvertFunds(msg.sender, owner, value);
+        // This event is monitored to initiate the fiat transfer based on AGIPrice field
+        emit ConvertFunds(msg.sender, owner, value); 
         return true;
     }
 
