@@ -22,12 +22,12 @@ npm install
 
 ### Compile 
 ```bash
-truffle compile
+npm run compile
 ```
 
 ### Test 
 ```bash
-truffle test
+npm run test
 ```
 
 ## Package
