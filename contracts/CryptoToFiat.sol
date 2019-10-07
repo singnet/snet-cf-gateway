@@ -87,7 +87,15 @@ contract CryptoToFiat {
         return true;
     }
 
-    function initiateConversion(uint256 value, uint256 totalClaim, uint8 v, bytes32 r, bytes32 s)
+    /**
+      * @dev Initiates the conversion process.
+      * @param value     Amount to be converted.
+      * @param totalClaimable  Total claimable amount from MPE contract.
+      * @param v  Part of Authorizer Signature.
+      * @param r  Part of Authorizer Signature.
+      * @param s  Part of Authorizer Signature.
+      */
+    function initiateConversion(uint256 value, uint256 totalClaimable, uint8 v, bytes32 r, bytes32 s)
     public
     returns(bool)
     {
@@ -95,10 +103,10 @@ contract CryptoToFiat {
         require(balances[msg.sender] >= value.add(minBalance), "Minimum balance to be maintained in the contract");
         require(value <= conversionUpperLimit, "Exceeding the conversion limit");
         require(lastTxnBlocks[msg.sender] <= block.number.sub(txnLimitInBlocks), "Exceeding the number of transactions in given time");
-        require(totalConvertedAmt[msg.sender].add(value) <= totalClaim, "Exceeding the claims made so far");
+        require(totalConvertedAmt[msg.sender].add(value) <= totalClaimable, "Exceeding the claims made so far");
 
         //compose the message which was signed
-        bytes32 message = prefixed(keccak256(abi.encodePacked("__Conversion", this, msg.sender, totalClaim, lastTxnBlocks[msg.sender])));
+        bytes32 message = prefixed(keccak256(abi.encodePacked("__Conversion", this, msg.sender, totalClaimable, lastTxnBlocks[msg.sender])));
         
         // check that the signature is from the authorizer
         address authAddress = ecrecover(message, v, r, s);
