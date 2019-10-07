@@ -12,20 +12,13 @@ const mapDirs = {
 // source file relative to repo root => dest file relative to module root
 //                                or => key to extract from source file => dest file relative to module root
 const mapFiles = {
-    "contracts/IRegistry.sol": "sol/IRegistry.sol",
-    "contracts/Registry.sol":  "sol/Registry.sol",
-    "contracts/MultiPartyEscrow.sol":  "sol/MultiPartyEscrow.sol",
-    "build/contracts/Registry.json": {
-        "abi": "abi/Registry.json",
-        "networks": "networks/Registry.json",
-        "bytecode": "bytecode/Registry.json"
+    "contracts/CryptoToFiat.sol":  "sol/CryptoToFiat.sol",
+    "build/contracts/CryptoToFiat.json": {
+        "abi": "abi/CryptoToFiat.json",
+        "networks": "networks/CryptoToFiat.json",
+        "bytecode": "bytecode/CryptoToFiat.json"
     },
-    "build/contracts/MultiPartyEscrow.json": {
-        "abi": "abi/MultiPartyEscrow.json",
-        "networks": "networks/MultiPartyEscrow.json",
-        "bytecode": "bytecode/MultiPartyEscrow.json"
-    },
-    "resources/npm-README.md": "README.md",
+    "README.md": "README.md",
     "LICENSE": "LICENSE"
 };
 
