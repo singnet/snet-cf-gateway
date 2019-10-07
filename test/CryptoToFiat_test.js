@@ -175,16 +175,13 @@ contract('CryptoToFiat', function(accounts) {
 
         //Create the signature
         sender = accounts[5]
-        lastTxnBlockNumber = (await cryptoToFiat.lastTxnBlocks.call(sender)).toNumber();
-
         let authorizer = await cryptoToFiat.authorizer.call();
-        let sgn = await signFuns.waitSignedInitiateConversionMessage(accounts[9], cryptoToFiat.address, sender, totalClaim, lastTxnBlockNumber);        
-        let vrs = signFuns.getVRSFromSignature(sgn.toString("hex"));
 
         // Test to convert full balance - should not allow
         lastTxnBlockNumber = (await cryptoToFiat.lastTxnBlocks.call(sender)).toNumber();
-        sgn = await signFuns.waitSignedInitiateConversionMessage(accounts[9], cryptoToFiat.address, sender, totalClaim, lastTxnBlockNumber);        
-        vrs = signFuns.getVRSFromSignature(sgn.toString("hex"));
+        let sgn = await signFuns.waitSignedInitiateConversionMessage(accounts[9], cryptoToFiat.address, sender, totalClaim, lastTxnBlockNumber);        
+        let vrs = signFuns.getVRSFromSignature(sgn.toString("hex"));
+        
         testErrorRevert(cryptoToFiat.initiateConversion(depositAmount, totalClaim, vrs.v, vrs.r, vrs.s, {from:accounts[5]}));
 
         // Test to convert more than balance amount
